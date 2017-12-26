@@ -18,9 +18,9 @@ class perceptron
     float error;
 
   public:
-    perceptron(){}
-    virtual ~perceptron(){}
-    perceptron(int size): weights(size,0)
+    perceptron(){} //default constructor
+    virtual ~perceptron(){}//destructor
+    perceptron(int size): weights(size,0) // initialises the weights
     {
       size_ = size;
       l_rate = 0.01;
@@ -35,13 +35,13 @@ class perceptron
 
     }
 
-    void setup_ins(vector<int> &ins)
+    void setup_ins(vector<int> &ins)//sets up inputs
     {
       inputs = ins;
     }
 
-    int activation()
-    {
+    int activation() //this is a step activation function determines whether
+    {               // whether 0 or 1
       float sum = 0;
       for(int i = 0; i < inputs.size(); i++)
       {
@@ -59,12 +59,12 @@ class perceptron
       return output;
     }
 
-    void error_eval(int i)
+    void error_eval(int i) // finds difference in errors
     {
       error = i - output;
     }
 
-    void backpropagation()
+    void backpropagation() //backpropagates the weights value
     {
         for(int i = 0; i < size_; i++)
         {
@@ -84,14 +84,14 @@ int main()
 {
   vector<vector<int>> ins = {{0,0},{0,1},{1,0},{1,1}};
   vector<int> outs = {0,0,0,1};
-  perceptron * p_node = new perceptron(3);//input size
+  perceptron * p_node = new perceptron(3);//size of the weights plus for bias
 
   for(int i = 0; i < 100; i++)
   {
     cout << "iteration " << i << endl;
     for(int j = 0; j < 4; j++)
     {
-      p_node->setup_ins(ins.at(j));
+      p_node->setup_ins(ins.at(j)); // needs inputs in turn by turn
       p_node->activation();
       if(p_node->activation() == outs.at(j))
       {
@@ -101,7 +101,7 @@ int main()
       p_node->backpropagation();
     }
   }
-
+  // to test whether the perceptron learnt or not
   int a,b;
   cout << "please enter two binary number seperately" << endl;
   cin >> a;
